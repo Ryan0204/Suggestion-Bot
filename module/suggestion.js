@@ -12,7 +12,7 @@ const channelSchema = require("../schema/suggestChannel");
 
 client.on("messageCreate", async (message) => {
   if (!message.guild) return;
-  channelSchema.findOne({ GuildID: message.guild.id }, async (err, data) => {
+  channelSchema.findOne({ ChannelID: message.channel.id }, async (err, data) => {
     if (!data) return;
     if (message.channel.id !== data.ChannelID || message.author.bot) return;
     SendInChannel();

@@ -58,7 +58,7 @@ module.exports = {
       })
       .setColor(config.color.grey);
     suggestSchema.findOne(
-      { GuildID: interaction.guild.id },
+      { ChannelID: channel.id },
       async (err, data) => {
         if (data) data.delete();
 
