@@ -6,11 +6,12 @@
 
 ## 🖥 功能
 <hr />
-- 機器人信息 (/ping)
-- 設置建議頻道 (/setup-suggestion)
-- 回覆指定建議訊息 (/reply <訊息ID> <類型> <原因>)
-- 機器人控制面板 (/manage-bot) (擁有者)
+- 機器人信息 (/ping) <br />
+- 設置建議頻道 (/setup-suggestion) <br />
+- 回覆指定建議訊息 (/reply <訊息ID> <類型> <原因>) <br />
+- 機器人控制面板 (/manage-bot) (擁有者) <br />
 
+<br />
 
 ## 📥 安裝
 <hr />
@@ -28,6 +29,8 @@ cd Suggestion-Bot
 npm install
 ```
 4. 填寫 `config.json.example` 並重新命名成 `config.json`
+
+<br />
 
 ## ⚙️ 設定檔
 <hr />
@@ -76,6 +79,7 @@ npm install
 }
 
 ```
+<br />
 
 ## 💿 示例
 <hr />
@@ -83,6 +87,7 @@ npm install
 <img src="https://cdn.ssrv.xyz/r/SOT8ra.png"  width=50% height=50%>
 <img src="https://cdn.ssrv.xyz/r/pyCXMi.png"  width=50% height=50%>
 
+<br />
 
 ## 🙏 貢獻者
 
