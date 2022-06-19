@@ -5,9 +5,10 @@
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=F7DF1E) ![Discord](https://img.shields.io/badge/Discord-%237289DA.svg?style=for-the-badge&logo=discord&logoColor=white&color=5865F2) 
 
 ## 示例
-![image](https://cdn.ssrv.xyz/r/u8HJnQ.jpeg)
-![image](https://cdn.ssrv.xyz/r/SOT8ra.png)
-![image](https://cdn.ssrv.xyz/r/pyCXMi.png)
+<img src="https://cdn.ssrv.xyz/r/u8HJnQ.jpeg"  width=50% height=50%>
+<img src="https://cdn.ssrv.xyz/r/SOT8ra.png"  width=50% height=50%>
+<img src="https://cdn.ssrv.xyz/r/pyCXMi.png"  width=50% height=50%>
+
 ##  功能
 - 機器人信息 (/ping)
 - 設置建議頻道 (/setup-suggestion)
