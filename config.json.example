@@ -1,0 +1,31 @@
+{
+  "token": "",
+  "mongooseConnectionString": "",
+  "prefix": "s!",
+  "activity": "/help | OuO 編程社群",
+  "status": "idle",
+  "present": "PLAYING",
+
+  "developers": [""],
+
+  "color": {
+    "main": "#ff3c00",
+    "error": "#ff5f8e",
+    "success": "#99ff9c",
+
+    "red": "#ff5a48",
+    "orange": "#ffca4d",
+    "yellow": "#ffcc5c",
+    "green": "#74ff89",
+    "purple": "#7d5eff",
+    "pink": "#ff88d2",
+    "grey": "#2f3136",
+    "white": "#ffffff",
+    "blue": "#5865F2"
+  },
+  "webhook" : {
+    "join": "",
+    "leave": "",
+    "error": ""
+  }
+}
