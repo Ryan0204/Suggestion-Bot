@@ -17,8 +17,7 @@ const {
   black,
 } = require("chalk");
 
-const date = new Date();
-const timestamp = Math.floor(date.getTime() / 1000);
+const timestamp = Math.floor(Date.now() / 1000);
 
 const channelSchema = require("../../schema/suggestChannel");
 
