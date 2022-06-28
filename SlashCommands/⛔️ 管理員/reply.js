@@ -18,7 +18,7 @@ const {
 } = require("chalk");
 
 const timestamp = Math.floor(Date.now() / 1000);
-
+const constom_message = require("../../schema/constom-message")
 const channelSchema = require("../../schema/suggestChannel");
 
 module.exports = {
@@ -51,6 +51,7 @@ module.exports = {
     },
   ],
   run: async (client, interaction, args) => {
+    constom_message.findOne({ guild: interaction.guild.id },async (err, data1) => {
     let sug_id = interaction.options.getString("message");
     let sug_type = interaction.options.getString("type");
     let sug_comment = interaction.options.getString("reason");
@@ -74,15 +75,15 @@ module.exports = {
         let new_typeName;
         let new_typeEmoji;
         if (sug_type == "accept_sug") {
-          new_typeColor = client.config.color.green;
+          new_typeColor = data1 ? data1.embedcolor_good ? data1.embedcolor_good : client.config.color.green: client.config.color.green;
           new_typeName = "同意";
           new_typeEmoji = "🟢";
         } else if (sug_type == "decline_sug") {
-          new_typeColor = client.config.color.red;
+          new_typeColor = data1 ? data1.embedcolor_not ? data1.embedcolor_not : client.config.color.red : client.config.color.red;
           new_typeName = "反對";
           new_typeEmoji = "🔴";
         } else if (sug_type == "maybe_sug") {
-          new_typeColor = client.config.color.orange;
+          new_typeColor = data1 ? data1.embedcolor_idk ? data1.embedcolor_idk : client.config.color.orange : client.config.color.orange;
           new_typeName = "考慮";
           new_typeEmoji = "🟠";
         }
@@ -127,6 +128,6 @@ module.exports = {
           `⭐ 已成功對建議作出回應 **[${sug_id}]**，在這裡查看： <#${data.ChannelID}>`
         );
       }
-    );
+    );})
   },
 };
