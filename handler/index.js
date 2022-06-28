@@ -84,8 +84,6 @@ module.exports = async (client) => {
     }
   });
 
-  console.log(client.config.webhook.join)
-
   const joinWebhook = new WebhookClient({ url: client.config.webhook.join })
   const leaveWebhook = new WebhookClient({ url: client.config.webhook.leave })
 
