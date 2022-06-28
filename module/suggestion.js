@@ -9,10 +9,12 @@ const {
 const config = client.config;
 const suggestSchema = require("../schema/suggest");
 const channelSchema = require("../schema/suggestChannel");
+const constom_message = require("../schema/constom-message");
 
 client.on("messageCreate", async (message) => {
   if (!message.guild) return;
   channelSchema.findOne({ ChannelID: message.channel.id }, async (err, data) => {
+    constom_message.findOne({ guild: message.guild.id },async (err, data1) => {
     if (!data) return;
     if (message.channel.id !== data.ChannelID || message.author.bot) return;
     SendInChannel();
@@ -41,6 +43,7 @@ client.on("messageCreate", async (message) => {
       client.channels.cache
         .get(data.ChannelID)
         .send({
+          content: data1 ? data1.message ? data1.message : null : null,
           embeds: [
             new MessageEmbed()
               .setAuthor({
@@ -63,7 +66,7 @@ client.on("messageCreate", async (message) => {
                 text: "想建議/反饋？ 只需輸入在此頻道！",
                 iconURL: `${client.user.displayAvatarURL()}`,
               })
-              .setColor(client.config.color.blue),
+              .setColor(data1 ? data1.embedcolor_none ? data1.embedcolor_none : config.color.blue : config.color.blue),
           ],
           components: [
             new MessageActionRow().addComponents(
@@ -90,7 +93,7 @@ client.on("messageCreate", async (message) => {
         });
     }
   });
-});
+})});
 
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isButton()) return;
