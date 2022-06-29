@@ -120,7 +120,7 @@ module.exports = {
             }).save();
         } else {
             if (options === null)
-                return interaction.reply({
+                return interaction.editReply({
                     embeds: [
                         new MessageEmbed()
                             .setTitle("❌ | 請提供選項")
@@ -129,8 +129,9 @@ module.exports = {
                     ephemeral: true,
                 });
             let array = options.split("^");
+            console.log(array.length)
             if (array.length > 10)
-                return interaction.reply({
+                return interaction.editReply({
                     embeds: [
                         new MessageEmbed()
                             .setTitle(`❌ | 最多10個選項`)
