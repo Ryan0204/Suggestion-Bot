@@ -32,6 +32,12 @@ module.exports = {
             type: "STRING",
             required: false,
         },
+        {
+            name: "標注",
+            description: "選擇你要tag誰或身分組",
+            type: "STRING",
+            required: false,
+        },
     ],
     deferReply: true,
     /**
@@ -61,6 +67,7 @@ module.exports = {
         const question = interaction.options.getString("問題");
         const truefalse = interaction.options.getBoolean("是否題");
         const options = interaction.options.getString("選項");
+        const tag = interaction.options.getString("標注");
         let controlRow = new MessageActionRow().addComponents(
             new MessageSelectMenu()
                 .setCustomId("control")
@@ -107,6 +114,7 @@ module.exports = {
             );
 
             const sentMsg = await interaction.channel.send({
+                content: tag ? tag : null,
                 embeds: [embed],
                 components: [messageRow, controlRow],
             });
