@@ -34,7 +34,7 @@ module.exports = {
         },
         {
             name: "標注",
-            description: "選擇你要tag誰或身分組",
+            description: "選擇你要tag誰或身分組(可不標注)",
             type: "STRING",
             required: false,
         },
