@@ -32,6 +32,12 @@ module.exports = {
             type: "STRING",
             required: false,
         },
+        {
+            name: "標注",
+            description: "選擇你要tag誰或身分組(可不標注)",
+            type: "STRING",
+            required: false,
+        },
     ],
     deferReply: true,
     /**
@@ -61,6 +67,7 @@ module.exports = {
         const question = interaction.options.getString("問題");
         const truefalse = interaction.options.getBoolean("是否題");
         const options = interaction.options.getString("選項");
+        const tag = interaction.options.getString("標注");
         let controlRow = new MessageActionRow().addComponents(
             new MessageSelectMenu()
                 .setCustomId("control")
@@ -97,7 +104,7 @@ module.exports = {
                     .setCustomId("Option1"),
                 new MessageButton()
                     .setLabel("否")
-                    .setStyle("SECONDARY")
+                    .setStyle("SECONDARY") 
                     .setCustomId("Option2"),
                 new MessageButton()
                     .setLabel("查看投票結果")
@@ -107,6 +114,7 @@ module.exports = {
             );
 
             const sentMsg = await interaction.channel.send({
+                content: tag ? tag : null,
                 embeds: [embed],
                 components: [messageRow, controlRow],
             });
@@ -120,7 +128,7 @@ module.exports = {
             }).save();
         } else {
             if (options === null)
-                return interaction.reply({
+                return interaction.editReply({
                     embeds: [
                         new MessageEmbed()
                             .setTitle("❌ | 請提供選項")
@@ -129,8 +137,9 @@ module.exports = {
                     ephemeral: true,
                 });
             let array = options.split("^");
+            console.log(array.length)
             if (array.length > 10)
-                return interaction.reply({
+                return interaction.editReply({
                     embeds: [
                         new MessageEmbed()
                             .setTitle(`❌ | 最多10個選項`)
