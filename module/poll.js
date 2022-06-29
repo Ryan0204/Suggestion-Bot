@@ -21,10 +21,6 @@ client.on("interactionCreate", async (interaction) => {
         
     if (interaction.isSelectMenu()) {
         const checkEnded = await pollSchema.findOne({ MessageID: interaction.message.id });
-        if (checkEnded.Ended === true) return interaction.reply({
-            embeds: [endedEmbed],
-            ephemeral: true
-        })
         let messageId = interaction.message.id;
         let data = await pollSchema.findOne({ MessageID: messageId });
         if (interaction.customId === "control") {
@@ -64,6 +60,11 @@ client.on("interactionCreate", async (interaction) => {
                         .setColor("GREEN")
                 ], ephemeral: true})
             } if (value === "end") {
+                if (checkEnded.Ended === true) return interaction.reply({
+                    embeds: [endedEmbed],
+                    ephemeral: true
+                })
+
                 pollSchema.findOneAndUpdate({
                     MessageID: interaction.message.id
                 }, {
@@ -89,21 +90,15 @@ client.on("interactionCreate", async (interaction) => {
 
     if (interaction.type === "APPLICATION_COMMAND") return;
     if (interaction.isButton) {
-        const checkEnded = await pollSchema.findOne({ MessageID: interaction.message.id });
-        if (checkEnded.Ended === true) return interaction.reply({
-            embeds: [endedEmbed],
-            ephemeral: true
-        })
-
         if (interaction.customId.startsWith("Option")) {
-
             let messageId = interaction.message.id;
-    
+
             const checkEnded = await pollSchema.findOne({ MessageID: messageId });
             if (checkEnded.Ended === true) return interaction.reply({
                 embeds: [endedEmbed],
                 ephemeral: true
             })
+
             // PULL SCHEMA
             pollSchema.findOneAndUpdate(
                 { MessageID: messageId },
