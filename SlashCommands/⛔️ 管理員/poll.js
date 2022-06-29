@@ -60,7 +60,7 @@ module.exports = {
                 (member) => !member.user.bot
             ).size;
         if (!interaction.member.permissions.has("MANAGE_GUILD"))
-            return interaction.reply({
+        return interaction.editReply({
                 content: `🔒 你沒有權限使用此指令！`,
                 ephemeral: true,
             });
