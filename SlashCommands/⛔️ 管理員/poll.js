@@ -104,7 +104,7 @@ module.exports = {
                     .setCustomId("Option1"),
                 new MessageButton()
                     .setLabel("否")
-                    .setStyle("SECONDARY")
+                    .setStyle("SECONDARY") 
                     .setCustomId("Option2"),
                 new MessageButton()
                     .setLabel("查看投票結果")
