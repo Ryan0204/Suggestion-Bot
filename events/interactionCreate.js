@@ -29,8 +29,10 @@ client.on("interactionCreate", async (interaction) => {
     }
     time_stamps.set(interaction.user.id, current_time);
     setTimeout(() => time_stamps.delete(interaction.user.id), cooldown_amount);
-
-    await interaction.deferReply({ ephemeral: false }).catch(() => {});
+    if (cmd.deferReply === true) {
+      await interaction.deferReply({ ephemeral: true }).catch(() => {});
+    } else 
+      await interaction.deferReply({ ephemeral: false }).catch(() => {});
     const args = [];
 
     for (let option of interaction.options.data) {

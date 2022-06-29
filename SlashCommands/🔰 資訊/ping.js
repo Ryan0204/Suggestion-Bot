@@ -60,7 +60,7 @@ module.exports = {
           inline: true,
         }
       )
-      .setFooter({ Text: '此機器人由 Ryan 製作'})
+      .setFooter({ text: '此機器人由 Ryan 製作'})
       .setColor(config.color.grey);
     interaction.followUp({ embeds: [embed] });
   },
