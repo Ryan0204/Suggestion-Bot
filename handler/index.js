@@ -92,6 +92,11 @@ module.exports = async (client) => {
     let embed = new MessageEmbed()
       .setAuthor({ name: `${client.user.username}#${client.user.discriminator} | ${client.user.id}`, iconURL: client.user.displayAvatarURL()})
       .setDescription(`<:joins:956444030487642112> 我加入了 ${guild.name}！`)
+      .addFields(
+        { name: 'GuildID', value: `\`${guild.id}\``, inline: true },
+        { name: 'GuildOwner', value: `<@${guild.ownerId}> (\`${guild.ownerId}\`)`, inline: true },
+        { name: "Guild Member Count", value: `${guild.memberCount}`, inline: true }
+      )
       .setColor(client.config.color.grey)
     joinWebhook.send({
       embeds: [embed]

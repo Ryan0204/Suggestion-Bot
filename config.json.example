@@ -26,6 +26,7 @@
   "webhook" : {
     "join": "",
     "leave": "",
-    "error": ""
+    "error": "",
+    "command": ""
   }
 }
