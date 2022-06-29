@@ -12,7 +12,7 @@ const {
   const constom_message = require("../../schema/constomMessage.js");
   module.exports = {
     name: "custom-message",
-    description: "設置建議遷入顏色以及tag",
+    description: "設置建議嵌入顏色以及tag",
     options: [
       {
         name: "標注",
