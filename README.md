@@ -103,3 +103,14 @@ node shard.js
 | Windowsed | 貢獻者 |
 | 夜貓 | 貢獻者 |
 
+## ⚠️ 版權
+
+- 您有權拍攝和分享視頻，但您必須在視頻中提及我們和我們的伺服器
+- 您不能在您網站上的任何地方使用我們的品牌並聲稱它是您自己的
+- 您有權以書面形式分享，但您必須在文章中提及我們，我們的伺服器
+- 你不能說“我們做的”
+- 你不能賣這個機器人
+- 你不能更改以下程式：
+<img src="https://imgur.com/ulSwMm9.png" width=30% height=30%>
+<img src="https://imgur.com/rZ9D2DS.png" width=30% height=30%>
+
