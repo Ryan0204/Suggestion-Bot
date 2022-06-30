@@ -29,6 +29,10 @@ cd Suggestion-Bot
 npm install
 ```
 4. 填寫 `config.json.example` 並重新命名成 `config.json`
+5. 啟動機器人
+```sh
+node shard.js
+```
 
 <br />
 
@@ -75,6 +79,8 @@ npm install
     // 離開伺服器提示 Webhook URL
     "error": ""
     // 錯誤提示 Webhook URL
+    "command": ""
+    // 使用指令記錄 Webhook URL
   }
 }
 
