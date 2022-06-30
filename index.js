@@ -1,4 +1,5 @@
 const { Client, Collection, Intents } = require("discord.js");
+const Cluster = require('discord-hybrid-sharding');
 const colors = require("colors");
 const client = new Client({
   intents: [
@@ -8,9 +9,13 @@ const client = new Client({
     Intents.FLAGS.GUILD_INVITES,
     Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
     Intents.FLAGS.GUILD_WEBHOOKS,
-  ]
+  ],
+  shards: Cluster.data.SHARD_LIST,
+  shardCount: Cluster.data.TOTAL_SHARDS,
 });
 module.exports = client;
+
+
 
 // Global Variables
 client.commands = new Collection();
@@ -23,6 +28,16 @@ require("./handler")(client);
 // stop and restart
 const glob = require("glob");
 const fetch = require(`node-fetch`);
+
+client.cluster = new Cluster.Client(client);
+client.login(client.config.token);
+
+
+
+
+
+/*          MANAGE BOT CODE          ||            MANAGE BOT CODE         */
+
 client.on("interactionCreate", async (btn) => {
   if (btn.values == "stop_client") {
     if (!client.config.developers.includes(btn.member.id))
@@ -124,8 +139,6 @@ client.on("interactionCreate", async (btn) => {
     });
   }
 });
-
-client.login(client.config.token);
 
 /*           ANTI CRASHING            ¦¦           ANTI CRASHING           */
 process.on("unhandledRejection", (reason, p) => {
