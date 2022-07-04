@@ -18,7 +18,7 @@ client.on("interactionCreate", async (interaction) => {
             iconURL: client.user.avatarURL({ dynamic: true }),
             text: "Suggestion Bot ∙ 將 Discord 變成不一樣的 Discord",
         })
-        
+
     if (interaction.isSelectMenu()) {
         const checkEnded = await pollSchema.findOne({ MessageID: interaction.message.id });
         let messageId = interaction.message.id;
@@ -27,16 +27,47 @@ client.on("interactionCreate", async (interaction) => {
             const value = interaction.values[0];
 
             if (value === "visible") {
+
+                if (interaction.user.id != data.OwnerID)
+                    return interaction.reply({
+                        embeds: [
+                            new MessageEmbed()
+                                .setTitle('❌ | 你不是投票的建立者')
+                                .setFooter({
+                                    iconURL: client.user.avatarURL({ dynamic: true }),
+                                    text: "Suggestion Bot ∙ 將 Discord 變成不一樣的 Discord",
+                                })
+                                .setColor("RED")
+                        ],
+                        ephemeral: true
+                    })
+
                 let newPublic = false;
                 if (data.Public === false) newPublic = true;
                 pollSchema.findOneAndUpdate(
                     { MessageID: messageId },
-                    { $set: { Public: newPublic }},
+                    { $set: { Public: newPublic } },
                     async (err, data) => {
                         await data.save()
                     }
                 );
-                if (interaction.user.id != data.OwnerID) return interaction.reply({
+                let textPublic = "公開";
+                if (newPublic === false) textPublic = "不公開"
+                interaction.reply({
+                    embeds: [
+                        new MessageEmbed()
+                            .setTitle(`✅ | 投票設定為${textPublic}`)
+                            .setFooter({
+                                iconURL: client.user.avatarURL({ dynamic: true }),
+                                text: "Suggestion Bot ∙ 將 Discord 變成不一樣的 Discord",
+                            })
+                            .setColor("GREEN")
+                    ], ephemeral: true
+                })
+            } if (value === "end") {
+
+                if (interaction.user.id != data.OwnerID)
+                return interaction.reply({
                     embeds: [
                         new MessageEmbed()
                             .setTitle('❌ | 你不是投票的建立者')
@@ -48,18 +79,8 @@ client.on("interactionCreate", async (interaction) => {
                     ],
                     ephemeral: true
                 })
-                let textPublic = "公開";
-                if (newPublic === false) textPublic = "不公開"
-                interaction.reply({ embeds: [
-                    new MessageEmbed()
-                        .setTitle(`✅ | 投票設定為${textPublic}`)
-                        .setFooter({
-                            iconURL: client.user.avatarURL({ dynamic: true }),
-                            text: "Suggestion Bot ∙ 將 Discord 變成不一樣的 Discord",
-                        })
-                        .setColor("GREEN")
-                ], ephemeral: true})
-            } if (value === "end") {
+
+
                 if (checkEnded.Ended === true) return interaction.reply({
                     embeds: [endedEmbed],
                     ephemeral: true
@@ -71,18 +92,20 @@ client.on("interactionCreate", async (interaction) => {
                     $set: {
                         Ended: true,
                     }
-                }, async(err, data) => {
+                }, async (err, data) => {
                     await data.save();
                 })
-                interaction.reply({ embeds: [
-                    new MessageEmbed()
-                        .setTitle("❌ | 投票已被終止")
-                        .setColor("RED")
-                        .setFooter({
-                            iconURL: client.user.avatarURL({ dynamic: true }),
-                            text: "Suggestion Bot ∙ 將 Discord 變成不一樣的 Discord",
-                        })
-                ], ephemeral: true })
+                interaction.reply({
+                    embeds: [
+                        new MessageEmbed()
+                            .setTitle("❌ | 投票已被終止")
+                            .setColor("RED")
+                            .setFooter({
+                                iconURL: client.user.avatarURL({ dynamic: true }),
+                                text: "Suggestion Bot ∙ 將 Discord 變成不一樣的 Discord",
+                            })
+                    ], ephemeral: true
+                })
             }
         }
     }
@@ -193,13 +216,13 @@ client.on("interactionCreate", async (interaction) => {
                 ],
                 ephemeral: true,
             });
-    
+
             await delay(200);
-    
+
             const data = await pollSchema.findOne({
                 MessageID: interaction.message.id,
             });
-    
+
             let count =
                 data.Option1.length +
                 data.Option2.length +
@@ -211,11 +234,11 @@ client.on("interactionCreate", async (interaction) => {
                 data.Option8.length +
                 data.Option9.length +
                 data.Option10.length;
-    
+
             let members;
-            if(interaction.guild.members.cache.size === interaction.guild.memberCount) members = interaction.guild.members.cache.filter(member => !member.user.bot).size;
+            if (interaction.guild.members.cache.size === interaction.guild.memberCount) members = interaction.guild.members.cache.filter(member => !member.user.bot).size;
             else members = (await interaction.guild.members.fetch()).filter(member => !member.user.bot).size;
-        
+
             const user = client.users.cache.get(data.OwnerID);
             let embed = new MessageEmbed()
                 .setAuthor({ name: "📖 | 投票" })
@@ -232,7 +255,7 @@ client.on("interactionCreate", async (interaction) => {
                     iconURL: user.avatarURL({ dynamic: true }),
                 })
                 .setColor("RANDOM");
-    
+
             interaction.message.edit({ embeds: [embed] });
         } else if (interaction.customId === "showChart") {
             const data = await pollSchema.findOne({
@@ -262,7 +285,7 @@ client.on("interactionCreate", async (interaction) => {
             canvas.registerFont(`${process.cwd()}/fonts/NotoSansTC-Regular.otf`, {
                 family: "NotoSansTC",
             });
-    
+
             const configuration = {
                 type: "pie",
                 options: {
@@ -314,10 +337,10 @@ client.on("interactionCreate", async (interaction) => {
                     ],
                 },
             };
-    
+
             const image = await canvas.renderToBuffer(configuration);
             const attachment = new MessageAttachment(image);
-    
+
             // Get number of how many people joined
             let count =
                 +data.Option1.length +
@@ -422,7 +445,7 @@ client.on("interactionCreate", async (interaction) => {
                 };
                 options.push(fieldData);
             }
-    
+
             const statusEmbed = new MessageEmbed()
                 .setTitle(data.Title)
                 .addFields(options)
@@ -434,5 +457,5 @@ client.on("interactionCreate", async (interaction) => {
                 ephemeral: true,
             });
         }
-    }  
+    }
 });
