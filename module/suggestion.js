@@ -105,22 +105,29 @@ client.on("interactionCreate", async (interaction) => {
           interaction.user.id
         );
         if (voted2) {
-          let upvotes = parseInt(
-            interaction.message.embeds[0].fields[0].value
-              .split(" 票")
-              .join("")
-              .split("`")
-              .join("")
-          );
-          let downvotes = parseInt(
-            interaction.message.embeds[0].fields[1].value
-              .split(" 票")
-              .join("")
-              .split("`")
-              .join("")
-          );
-          upvotes++;
-          downvotes--;
+          await UpdateUpvotesDb(interaction.message.id, interaction.user);
+          await RemoveDownvotesDb(interaction.message.id, interaction.user);
+
+
+          let downvotes = await getVoteDownCount(interaction.message.id);
+          let upvotes = await getVoteUpCount(interaction.message.id);
+
+          // let upvotes = parseInt(
+          //   interaction.message.embeds[0].fields[0].value
+          //     .split(" 票")
+          //     .join("")
+          //     .split("`")
+          //     .join("")
+          // );
+          // let downvotes = parseInt(
+          //   interaction.message.embeds[0].fields[1].value
+          //     .split(" 票")
+          //     .join("")
+          //     .split("`")
+          //     .join("")
+          // );
+          // upvotes++;
+          // downvotes--;
           const embed = interaction.message.embeds[0];
           embed.fields[0].key = "👍 **__贊成__:**";
           embed.fields[0].value = `\`\`\`${upvotes} 票\`\`\``;
@@ -149,8 +156,6 @@ client.on("interactionCreate", async (interaction) => {
               ),
             ],
           });
-          await UpdateUpvotesDb(interaction.message.id, interaction.user);
-          await RemoveDownvotesDb(interaction.message.id, interaction.user);
         }
         const voted = await AlreadyUpVoted(
           interaction.message.id,
@@ -171,7 +176,7 @@ client.on("interactionCreate", async (interaction) => {
             .split("`")
             .join("")
         );
-        upvotes++;
+        // upvotes++;
         const embed = interaction.message.embeds[0];
         embed.fields[0].key = "👍 **__贊成__:**";
         embed.fields[0].value = `\`\`\`${upvotes} 票\`\`\``;
@@ -211,22 +216,32 @@ client.on("interactionCreate", async (interaction) => {
           interaction.user.id
         );
         if (voted2) {
-          let upvotes = parseInt(
-            interaction.message.embeds[0].fields[0].value
-              .split(" 票")
-              .join("")
-              .split("`")
-              .join("")
-          );
-          let downvotes = parseInt(
-            interaction.message.embeds[0].fields[1].value
-              .split(" 票")
-              .join("")
-              .split("`")
-              .join("")
-          );
-          downvotes++;
-          upvotes--;
+          await UpdateDownvotesDb(interaction.message.id, interaction.user);
+          await RemoveUpvotesDb(interaction.message.id, interaction.user);
+
+          let downvotes = await getVoteDownCount(interaction.message.id);
+          let upvotes = await getVoteUpCount(interaction.message.id);
+
+          // console.log(abc)
+
+          // let upvotes = parseInt(
+          //   interaction.message.embeds[0].fields[0].value
+          //     .split(" 票")
+          //     .join("")
+          //     .split("`")
+          //     .join("")
+          // );
+          // let downvotes = parseInt(
+          //   interaction.message.embeds[0].fields[1].value
+          //     .split(" 票")
+          //     .join("")
+          //     .split("`")
+          //     .join("")
+          // );
+
+
+          // downvotes++;
+          // upvotes--;
           const embed = interaction.message.embeds[0];
           embed.fields[0].key = "👍 **__贊成__:**";
           embed.fields[0].value = `\`\`\`${upvotes} 票\`\`\``;
@@ -255,8 +270,6 @@ client.on("interactionCreate", async (interaction) => {
               ),
             ],
           });
-          await UpdateDownvotesDb(interaction.message.id, interaction.user);
-          await RemoveUpvotesDb(interaction.message.id, interaction.user);
         }
         const voted = await AlreadyDownVoted(
           interaction.message.id,
@@ -277,7 +290,10 @@ client.on("interactionCreate", async (interaction) => {
             .split("`")
             .join("")
         );
-        downvotes++;
+        // downvotes++;
+
+
+
         const embed = interaction.message.embeds[0];
         embed.fields[0].key = "👍 **__贊成__:**";
         embed.fields[0].value = `\`\`\`${upvotes} 票\`\`\``;
@@ -419,4 +435,14 @@ async function WhoVotedDown(key) {
   } else {
     return db.Down.join("\n");
   }
+}
+
+async function getVoteUpCount(key) {
+  const db = await Sugesstion.findOne({ MessageId: key });
+  return db.Up.length;
+}
+
+async function getVoteDownCount(key) {
+  const db = await Sugesstion.findOne({ MessageId: key });
+  return db.Down.length;
 }
