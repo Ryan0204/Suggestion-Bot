@@ -39,13 +39,7 @@ module.exports = {
             required: false,
         },
         {
-            name: "圖片1",
-            description: "放上你要的圖片",
-            type: "ATTACHMENT",
-            required: false,
-        },
-        {
-            name: "圖片2",
+            name: "圖片",
             description: "放上你要的圖片",
             type: "ATTACHMENT",
             required: false,
