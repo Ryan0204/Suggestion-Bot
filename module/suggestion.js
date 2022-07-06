@@ -112,22 +112,6 @@ client.on("interactionCreate", async (interaction) => {
           let downvotes = await getVoteDownCount(interaction.message.id);
           let upvotes = await getVoteUpCount(interaction.message.id);
 
-          // let upvotes = parseInt(
-          //   interaction.message.embeds[0].fields[0].value
-          //     .split(" 票")
-          //     .join("")
-          //     .split("`")
-          //     .join("")
-          // );
-          // let downvotes = parseInt(
-          //   interaction.message.embeds[0].fields[1].value
-          //     .split(" 票")
-          //     .join("")
-          //     .split("`")
-          //     .join("")
-          // );
-          // upvotes++;
-          // downvotes--;
           const embed = interaction.message.embeds[0];
           embed.fields[0].key = "👍 **__贊成__:**";
           embed.fields[0].value = `\`\`\`${upvotes} 票\`\`\``;
@@ -162,21 +146,13 @@ client.on("interactionCreate", async (interaction) => {
           interaction.user.id
         );
         if (voted) return interaction.deferUpdate().catch(() => {});
-        let upvotes = parseInt(
-          interaction.message.embeds[0].fields[0].value
-            .split(" 票")
-            .join("")
-            .split("`")
-            .join("")
-        );
-        let downvotes = parseInt(
-          interaction.message.embeds[0].fields[1].value
-            .split(" 票")
-            .join("")
-            .split("`")
-            .join("")
-        );
-        // upvotes++;
+
+        await UpdateUpvotesDb(interaction.message.id, interaction.user);
+
+        let downvotes = await getVoteDownCount(interaction.message.id);
+        let upvotes = await getVoteUpCount(interaction.message.id);
+
+
         const embed = interaction.message.embeds[0];
         embed.fields[0].key = "👍 **__贊成__:**";
         embed.fields[0].value = `\`\`\`${upvotes} 票\`\`\``;
@@ -205,7 +181,6 @@ client.on("interactionCreate", async (interaction) => {
             ),
           ],
         });
-        await UpdateUpvotesDb(interaction.message.id, interaction.user);
         interaction.deferUpdate().catch(() => {});
       }
       break;
@@ -221,27 +196,7 @@ client.on("interactionCreate", async (interaction) => {
 
           let downvotes = await getVoteDownCount(interaction.message.id);
           let upvotes = await getVoteUpCount(interaction.message.id);
-
-          // console.log(abc)
-
-          // let upvotes = parseInt(
-          //   interaction.message.embeds[0].fields[0].value
-          //     .split(" 票")
-          //     .join("")
-          //     .split("`")
-          //     .join("")
-          // );
-          // let downvotes = parseInt(
-          //   interaction.message.embeds[0].fields[1].value
-          //     .split(" 票")
-          //     .join("")
-          //     .split("`")
-          //     .join("")
-          // );
-
-
-          // downvotes++;
-          // upvotes--;
+          
           const embed = interaction.message.embeds[0];
           embed.fields[0].key = "👍 **__贊成__:**";
           embed.fields[0].value = `\`\`\`${upvotes} 票\`\`\``;
@@ -276,21 +231,11 @@ client.on("interactionCreate", async (interaction) => {
           interaction.user.id
         );
         if (voted) return interaction.deferUpdate().catch(() => {});
-        let upvotes = parseInt(
-          interaction.message.embeds[0].fields[0].value
-            .split(" 票")
-            .join("")
-            .split("`")
-            .join("")
-        );
-        let downvotes = parseInt(
-          interaction.message.embeds[0].fields[1].value
-            .split(" 票")
-            .join("")
-            .split("`")
-            .join("")
-        );
-        // downvotes++;
+        
+        await UpdateDownvotesDb(interaction.message.id, interaction.user);
+
+        let downvotes = await getVoteDownCount(interaction.message.id);
+        let upvotes = await getVoteUpCount(interaction.message.id);
 
 
 
@@ -322,7 +267,6 @@ client.on("interactionCreate", async (interaction) => {
             ),
           ],
         });
-        await UpdateDownvotesDb(interaction.message.id, interaction.user);
         interaction.deferUpdate().catch(() => {});
       }
       break;
