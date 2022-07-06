@@ -9,7 +9,7 @@ const {
 } = require("discord.js");
 const { emojis } = require("../../index.js");
 const pollSchema = require("../../schema/poll.js");
-module.exports = {
+module.exports = {   
     name: "poll",
     description: "投票系統",
     type: "CHAT_INPUT",
