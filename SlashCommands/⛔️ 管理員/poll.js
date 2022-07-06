@@ -38,6 +38,18 @@ module.exports = {
             type: "STRING",
             required: false,
         },
+        {
+            name: "圖片1",
+            description: "放上你要的圖片",
+            type: "ATTACHMENT",
+            required: false,
+        },
+        {
+            name: "圖片2",
+            description: "放上你要的圖片",
+            type: "ATTACHMENT",
+            required: false,
+        },
     ],
     deferReply: true,
     /**
@@ -68,6 +80,8 @@ module.exports = {
         const truefalse = interaction.options.getBoolean("是否題");
         const options = interaction.options.getString("選項");
         const tag = interaction.options.getString("標注");
+        const pic = interaction.options.getAttachment("圖片");
+        if(pic && !pic.contentType.includes("image")) return interaction.editReply(":x: 你給的檔案不是圖片!!")
         let controlRow = new MessageActionRow().addComponents(
             new MessageSelectMenu()
                 .setCustomId("control")
@@ -96,6 +110,7 @@ module.exports = {
                     text: `${interaction.user.username} 發起了投票`,
                     iconURL: interaction.user.avatarURL({ dynamic: true }),
                 })
+                .setImage(pic ? pic.proxyURL : null)
                 .setColor("RANDOM");
             let messageRow = new MessageActionRow().addComponents(
                 new MessageButton()
