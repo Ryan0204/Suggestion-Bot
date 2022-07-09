@@ -9,7 +9,7 @@ const {
 } = require("discord.js");
 const { emojis } = require("../../index.js");
 const pollSchema = require("../../schema/poll.js");
-module.exports = {
+module.exports = {   
     name: "poll",
     description: "投票系統",
     type: "CHAT_INPUT",
@@ -36,6 +36,12 @@ module.exports = {
             name: "標注",
             description: "選擇你要tag誰或身分組(可不標注)",
             type: "STRING",
+            required: false,
+        },
+        {
+            name: "圖片",
+            description: "放上你要的圖片",
+            type: "ATTACHMENT",
             required: false,
         },
     ],
@@ -68,6 +74,8 @@ module.exports = {
         const truefalse = interaction.options.getBoolean("是否題");
         const options = interaction.options.getString("選項");
         const tag = interaction.options.getString("標注");
+        const pic = interaction.options.getAttachment("圖片");
+        if(pic && !pic.contentType.includes("image")) return interaction.editReply(":x: 你給的檔案不是圖片!!")
         let controlRow = new MessageActionRow().addComponents(
             new MessageSelectMenu()
                 .setCustomId("control")
@@ -96,6 +104,7 @@ module.exports = {
                     text: `${interaction.user.username} 發起了投票`,
                     iconURL: interaction.user.avatarURL({ dynamic: true }),
                 })
+                .setImage(pic ? pic.proxyURL : null)
                 .setColor("RANDOM");
             let messageRow = new MessageActionRow().addComponents(
                 new MessageButton()
