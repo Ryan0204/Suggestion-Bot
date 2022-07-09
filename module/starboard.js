@@ -91,7 +91,6 @@ client.on("messageReactionRemove", (reaction) => {
 
     const checkBeta = betaSchema.findOne({ GuildID: reaction.message.guildId })
     if (!checkBeta) return;
-    if (reaction.message.author.id === client.application.id) return;
     const { message } = reaction;
     const guildId = reaction.message.guildId;
     starboardSchema.findOne({ GuildID: guildId }, async (err, data) => {
@@ -100,6 +99,7 @@ client.on("messageReactionRemove", (reaction) => {
         const guildId = reaction.message.guildId;
         const starChannel = client.channels.cache.get(data.ChannelID);
         if (!starChannel) return;
+        if (reaction.message.author.id === "955419318630375445") return;
         const handlerStarboard = async () => {
             const fetchedMessages = await starChannel.messages.fetch({
                 limit: 100,
