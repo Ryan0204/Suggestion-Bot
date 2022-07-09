@@ -21,7 +21,7 @@ const config = require("../../config.json");
 const suggestSchema = require("../../schema/suggestChannel");
 module.exports = {
   name: "setup-suggestion",
-  description: "設置建議頻道",
+  description: "設置建議系統",
   options: [
     {
       name: "channel",
@@ -31,6 +31,12 @@ module.exports = {
       required: true,
     },
   ],
+    /**
+     *
+     * @param {Client} client
+     * @param {CommandInteraction} interaction
+     * @param {String[]} args
+     */
   run: async (client, interaction, args) => {
     let channel = interaction.options.getChannel("channel");
     let message = await interaction.followUp({

@@ -5,7 +5,12 @@ const {
   MessageActionRow,
   MessageButton,
 } = require("discord.js");
-
+/**
+*
+* @param {Client} client
+* @param {CommandInteraction} interaction
+* @param {String[]} args
+*/
 module.exports = {
   name: "invite",
   description: "獲取機器人的邀請鏈接",

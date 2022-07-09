@@ -11,7 +11,7 @@ const {
   const config = require("../../config.json");
   const constom_message = require("../../schema/constomMessage.js");
   module.exports = {
-    name: "custom-message",
+    name: "config-suggestion",
     description: "設置建議嵌入顏色以及tag",
     options: [
       {
@@ -41,6 +41,12 @@ const {
         required: true,
       },
     ],
+    /**
+     *
+     * @param {Client} client
+     * @param {CommandInteraction} interaction
+     * @param {String[]} args
+     */
     run: async (client, interaction, args) => {
       let tag = interaction.options.getRole("標注");
       let color1 = interaction.options.getString("初始顏色");
