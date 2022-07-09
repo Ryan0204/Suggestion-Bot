@@ -149,6 +149,8 @@ function getImage(reaction, attachment) {
 /* Config StarBoard Command Code */
 
 client.on("interactionCreate", (interaction) => {
+    if (!interaction.isButton()) return;
+    if (interaction.customId !== "reactionCount" || "disableStarboardSystem" || "enableStarboardSystem" || "starboardChannel" || "setChannelID") return;
     if (!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_GUILD)) {
         return interaction.reply({ 
             embeds: [
@@ -164,7 +166,6 @@ client.on("interactionCreate", (interaction) => {
         })
     }
     
-    if (!interaction.isButton()) return;
     if (interaction.customId === "reactionCount") {
         starboardSchema.findOne(
             { GuildID: interaction.guild.id },
