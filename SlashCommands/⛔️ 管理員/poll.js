@@ -146,7 +146,6 @@ module.exports = {
                     ephemeral: true,
                 });
             let array = options.split("^");
-            console.log(array.length)
             if (array.length > 10)
                 return interaction.editReply({
                     embeds: [
