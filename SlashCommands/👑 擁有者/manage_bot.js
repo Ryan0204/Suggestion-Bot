@@ -5,7 +5,12 @@ module.exports = {
   name: "manage-bot",
   description: "管理機器人",
   type: "CHAT_INPUT",
-
+  /**
+  * 
+  * @param {Client} client
+  * @param {CommandInteraction} interaction
+  * @param {String[]} args
+  */
   run: async (client, interaction, args) => {
     if (!client.config.developers.includes(interaction.user.id))
       return interaction.followUp(`🔒 你沒有權限使用此指令！`);

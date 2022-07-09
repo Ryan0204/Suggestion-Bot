@@ -5,16 +5,17 @@ const {
   MessageActionRow,
   MessageButton,
 } = require("discord.js");
-/**
-*
-* @param {Client} client
-* @param {CommandInteraction} interaction
-* @param {String[]} args
-*/
+
 module.exports = {
   name: "invite",
   description: "獲取機器人的邀請鏈接",
   type: "CHAT_INPUT",
+  /**
+  * 
+  * @param {Client} client
+  * @param {CommandInteraction} interaction
+  * @param {String[]} args
+  */
   run: async (client, interaction, args) => {
     const emb = new MessageEmbed()
       .setColor(client.config.color.main)

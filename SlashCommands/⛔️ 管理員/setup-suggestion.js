@@ -31,12 +31,12 @@ module.exports = {
       required: true,
     },
   ],
-    /**
-     *
-     * @param {Client} client
-     * @param {CommandInteraction} interaction
-     * @param {String[]} args
-     */
+  /**
+  * 
+  * @param {Client} client
+  * @param {CommandInteraction} interaction
+  * @param {String[]} args
+  */
   run: async (client, interaction, args) => {
     let channel = interaction.options.getChannel("channel");
     let message = await interaction.followUp({

@@ -1,4 +1,4 @@
-const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
+const { Client, CommandInteraction, MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const { readdirSync } = require("fs");
 const path = require("path");
 const client = require("../..");
@@ -6,6 +6,12 @@ module.exports = {
   name: "help",
   description: "查看機器人的所有指令",
   type: "CHAT_INPUT",
+  /**
+  * 
+  * @param {Client} client
+  * @param {CommandInteraction} interaction
+  * @param {String[]} args
+  */  
   run: async (client, interaction, args) => {
     let categories = [];
 
@@ -42,6 +48,13 @@ module.exports = {
         text: `${client.user.tag} | 由 OuO 編程社群用 💖 製作`,
         iconURL: client.user.displayAvatarURL(),
       });
-    return interaction.followUp({ embeds: [embed] });
+    const buttonRow = new MessageActionRow()
+      .addComponents(
+        new MessageButton()
+        .setURL(`https://discord.gg/HAN45Zaknr`)
+        .setLabel("支援伺服器")
+        .setStyle("LINK")
+      )
+    return interaction.followUp({ embeds: [embed], components: [buttonRow] });
   },
 };

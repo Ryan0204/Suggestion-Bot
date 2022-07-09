@@ -4,6 +4,12 @@ module.exports = {
   name: "ping",
   description: "獲取機器人信息",
   type: "CHAT_INPUT",
+  /**
+  * 
+  * @param {Client} client
+  * @param {CommandInteraction} interaction
+  * @param {String[]} args
+  */
   run: async (client, interaction, args) => {
     // Uptime Checker
     let totalSeconds = client.uptime / 1000;
