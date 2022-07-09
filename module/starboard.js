@@ -21,7 +21,6 @@ const starboardSchema = require("../schema/starboard");
 client.on("messageReactionAdd", (reaction) => {
     const checkBeta = betaSchema.findOne({ GuildID: reaction.message.guildId })
     if (!checkBeta) return;
-    if (reaction.message.author.id === client.application.id) return;
     const guildId = reaction.message.guildId;
     starboardSchema.findOne({ GuildID: guildId }, async (err, data) => {
         if (!data) return;
@@ -30,6 +29,7 @@ client.on("messageReactionAdd", (reaction) => {
         if (reaction.count < data.Count) return;
         const starChannel = client.channels.cache.get(data.ChannelID);
         if (!starChannel) return;
+        if (reaction.message.author.id === "955419318630375445") return;
         const handlerStarboard = async () => {
             const fetchedMessages = await starChannel.messages.fetch({
                 limit: 100,
