@@ -8,8 +8,10 @@ const client = new Client({
     Intents.FLAGS.GUILD_MEMBERS,
     Intents.FLAGS.GUILD_INVITES,
     Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
-    Intents.FLAGS.GUILD_WEBHOOKS,
+    Intents.FLAGS.GUILD_WEBHOOKS
   ],
+  partials: ["MESSAGE", "CHANNEL", "REACTION"],
+  // intents: 32767,
   shards: Cluster.data.SHARD_LIST,
   shardCount: Cluster.data.TOTAL_SHARDS,
 });
