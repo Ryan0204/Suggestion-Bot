@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const Discord = require("discord.js");
 const globPromise = promisify(glob);
 const path = require("path");
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const { MessageEmbed, WebhookClient, Permissions } = require('discord.js');
 const webhookClient = new WebhookClient({
   url: client.config.webhook.error
 });
@@ -23,6 +23,19 @@ module.exports = async (client) => {
     path.join(__dirname, `..`, `module/`, `*.js`)
   );
   moduleFiles.map((value) => require(value));
+
+  // Commands
+  const commandFiles = await globPromise(`${process.cwd()}/commands/**/*.js`);
+  commandFiles.map((value) => {
+    const file = require(value);
+    const splitted = value.split("/");
+    const directory = splitted[splitted.length - 2];
+
+    if (file.name) {
+      const properties = { directory, ...file };
+      client.commands.set(file.name, properties);
+    }
+  });
 
   // Slash Commands
   const slashCommands = await globPromise(
@@ -87,10 +100,10 @@ module.exports = async (client) => {
   const joinWebhook = new WebhookClient({ url: client.config.webhook.join })
   const leaveWebhook = new WebhookClient({ url: client.config.webhook.leave })
 
- 
+
   client.on("guildCreate", async (guild) => {
     let embed = new MessageEmbed()
-      .setAuthor({ name: `${client.user.username}#${client.user.discriminator} | ${client.user.id}`, iconURL: client.user.displayAvatarURL()})
+      .setAuthor({ name: `${client.user.username}#${client.user.discriminator} | ${client.user.id}`, iconURL: client.user.displayAvatarURL() })
       .setDescription(`<:joins:956444030487642112> 我加入了 ${guild.name}！`)
       .addFields(
         { name: 'GuildID', value: `\`${guild.id}\``, inline: true },
@@ -101,6 +114,13 @@ module.exports = async (client) => {
     joinWebhook.send({
       embeds: [embed]
     })
+    const channel = guild.channels.cache.find(ch =>
+      ch.type === "GUILD_TEXT" && ch.permissionsFor(guild.me).has(Permissions.FLAGS.SEND_MESSAGES)
+    )
+    const welcomeEmbed = new MessageEmbed()
+      .setAuthor({ name: client.user.username, iconURL: client.user.displayAvatarURL() })
+      .setDescription(`嗨 ٩(●˙▿˙●)۶…⋆ฺ 我是 Suggestion Bot～\n📖 有任何問題都可以加入[官方群組](https://discord.gg/ouodev)`)
+
     await client.application.commands.set(arrayOfSlashCommands);
     return console.log(
       `⚡ 我被邀請加入 ${guild.name}！ 我現在將開始創建 / 指令（如果我有權限）`
@@ -108,7 +128,7 @@ module.exports = async (client) => {
   });
   client.on("guildDelete", async (guild) => {
     let embed = new MessageEmbed()
-      .setAuthor({ name: `${client.user.username}#${client.user.discriminator} | ${client.user.id}`, iconURL: client.user.displayAvatarURL()})
+      .setAuthor({ name: `${client.user.username}#${client.user.discriminator} | ${client.user.id}`, iconURL: client.user.displayAvatarURL() })
       .setDescription(`<:leaves:956444050792280084> 我離開了 ${guild.name}！`)
       .setColor(client.config.color.grey)
     leaveWebhook.send({
