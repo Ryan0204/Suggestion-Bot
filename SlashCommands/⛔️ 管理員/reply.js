@@ -18,14 +18,15 @@ const {
 } = require("chalk");
 
 const timestamp = Math.floor(Date.now() / 1000);
-const constom_message = require("../../schema/constomMessage")
+const constom_message = require("../../schema/suggestionSettings")
 const channelSchema = require("../../schema/suggestChannel");
 
 module.exports = {
   name: "reply",
   description: "回應建議",
   type: "CHAT_INPUT",
-  options: [
+    applicationId: "955420795201544220",
+    options: [
     {
       name: "message",
       description: "說明要回應的訊息 ID",

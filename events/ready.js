@@ -13,5 +13,5 @@ client.on("ready", () => {
     )
   );
   client.user.setActivity(client.config.activity, {type: client.config.present});
-  client.user.setStatus(client.config.status);
+  client.user.setStatus(`${client.config.status} | ${client.cluster.id}`);
 });

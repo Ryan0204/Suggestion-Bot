@@ -10,6 +10,7 @@ module.exports = {
     name: "config-starboard",
     description: "設定星版系統",
     type: "CHAT_INPUT",
+    applicationId: "1004678423626649611",
     /**
      *
      * @param {Client} client

@@ -250,6 +250,7 @@ client.on("interactionCreate", async (interaction) => {
                         100
                     ).toFixed(1)}%`
                 )
+                .setImage( data.Image ? data.Image : null)
                 .setFooter({
                     text: `${user.username} 發起了投票`,
                     iconURL: user.avatarURL({ dynamic: true }),
@@ -355,13 +356,21 @@ client.on("interactionCreate", async (interaction) => {
                 +data.Option10.length;
             const options = [];
             let fieldData = new Object();
-            if (data.Option1.length != 0) {
+            function trimArray(arr, maxLen = 40) {
+                if ([...arr.values()].length > maxLen) {
+                    const len = [...arr.values()].length - maxLen;
+                    arr = arr.slice(0, maxLen);
+                    arr.push(`還有 ${len} 人...`);
+                }
+                return arr.join(", ");
+            }
+            if (data.Option1.length != 0) { 
                 fieldData = {
                     name: `${data.Options[0]} (共 ${data.Option1.length} 人 ${(
                         (+data.Option1.length / +count) *
                         100
                     ).toFixed(1)}%)`,
-                    value: `${data.Option1.join("\n")}`,
+                    value: `${trimArray(data.Option1)}`,
                 };
                 options.push(fieldData);
             }
@@ -371,7 +380,7 @@ client.on("interactionCreate", async (interaction) => {
                         (+data.Option2.length / +count) *
                         100
                     ).toFixed(1)}%)`,
-                    value: `${data.Option2.join("\n")}`,
+                    value: `${trimArray(data.Option2)}`,
                 };
                 options.push(fieldData);
             }
@@ -381,7 +390,7 @@ client.on("interactionCreate", async (interaction) => {
                         (+data.Option3.length / +count) *
                         100
                     ).toFixed(1)}%)`,
-                    value: `${data.Option3.join("\n")}`,
+                    value: `${trimArray(data.Option3)}`,
                 };
                 options.push(fieldData);
             }
@@ -391,7 +400,7 @@ client.on("interactionCreate", async (interaction) => {
                         (+data.Option4.length / +count) *
                         100
                     ).toFixed(1)}%)`,
-                    value: `${data.Option4.join("\n")}`,
+                    value: `${trimArray(data.Option4)}`,
                 };
                 options.push(fieldData);
             }
@@ -401,7 +410,7 @@ client.on("interactionCreate", async (interaction) => {
                         (+data.Option5.length / +count) *
                         100
                     ).toFixed(1)}%)`,
-                    value: `${data.Option5.join("\n")}`,
+                    value: `${trimArray(data.Option5)}`,
                 };
                 options.push(fieldData);
             }
@@ -411,7 +420,7 @@ client.on("interactionCreate", async (interaction) => {
                         (+data.Option6.length / +count) *
                         100
                     ).toFixed(1)}%)`,
-                    value: `${data.Option6.join("\n")}`,
+                    value: `${trimArray(data.Option6)}`,
                 };
                 options.push(fieldData);
             }
@@ -421,7 +430,7 @@ client.on("interactionCreate", async (interaction) => {
                         (+data.Option7.length / +count) *
                         100
                     ).toFixed(1)}%)`,
-                    value: `${data.Option7.join("\n")}`,
+                    value: `${trimArray(data.Option7)}`,
                 };
                 options.push(fieldData);
             }
@@ -431,7 +440,7 @@ client.on("interactionCreate", async (interaction) => {
                         (+data.Option8.length / +count) *
                         100
                     ).toFixed(1)}%)`,
-                    value: `${data.Option8.join("\n")}`,
+                    value: `${trimArray(data.Option8)}`,
                 };
                 options.push(fieldData);
             }
@@ -441,7 +450,18 @@ client.on("interactionCreate", async (interaction) => {
                         (+data.Option9.length / +count) *
                         100
                     ).toFixed(1)}%)`,
-                    value: `${data.Option9.join("\n")}`,
+                    value: `${trimArray(data.Option9)}`,
+                };
+                options.push(fieldData);
+            }
+
+            if (data.Option10.length != 0) {
+                fieldData = {
+                    name: `${data.Options[9]} (共 ${data.Option10.length} 人 ${(
+                        (+data.Option10.length / +count) *
+                        100
+                    ).toFixed(1)}%)`,
+                    value: `${trimArray(data.Option10)}`,
                 };
                 options.push(fieldData);
             }

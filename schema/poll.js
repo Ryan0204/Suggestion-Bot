@@ -3,6 +3,7 @@ const Poll = new mongoose.Schema({
     MessageID: String,
     OwnerID: String,
     Title: String,
+    Image: String,
     Options: Array,
     Option1: Array,
     Option2: Array,

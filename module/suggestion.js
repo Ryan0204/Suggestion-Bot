@@ -9,7 +9,7 @@ const {
 const config = client.config;
 const suggestSchema = require("../schema/suggest");
 const channelSchema = require("../schema/suggestChannel");
-const constom_message = require("../schema/constomMessage");
+const constom_message = require("../schema/suggestionSettings");
 
 client.on("messageCreate", async (message) => {
   if (!message.guild) return;
@@ -39,11 +39,17 @@ client.on("messageCreate", async (message) => {
           url.indexOf(`jpg`, url.length - 3) !== -1
         );
       }
+      let mention;
+      if (!data1 || !data1.Mention) {
+        mention === null;
+      } else {
+        mention = data1.Mention;
+      }
       message.delete();
       client.channels.cache
         .get(data.ChannelID)
         .send({
-          content: data1 ? data1.Mention ? data1.Mention : null : null,
+          content: mention,
           embeds: [
             new MessageEmbed()
               .setAuthor({
@@ -90,6 +96,13 @@ client.on("messageCreate", async (message) => {
         })
         .then((m) => {
           new suggestSchema({ MessageId: m.id }).save();
+          if (!data1 || data1.Thread) return;
+          if (data1.Thread === true) {
+            m.startThread({
+              name: `${message.author.tag} 的提議`,
+              autoArchiveDuration: 10080,
+            });
+          };
         });
     }
   });

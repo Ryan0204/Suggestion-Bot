@@ -13,6 +13,7 @@ module.exports = {
     name: "poll",
     description: "投票系統",
     type: "CHAT_INPUT",
+    applicationId: "987680972092866572",
     options: [
         {
             name: "問題",
@@ -35,7 +36,7 @@ module.exports = {
         {
             name: "標注",
             description: "選擇你要tag誰或身分組(可不標注)",
-            type: "STRING",
+            type: "ROLE",
             required: false,
         },
         {
@@ -73,7 +74,7 @@ module.exports = {
         const question = interaction.options.getString("問題");
         const truefalse = interaction.options.getBoolean("是否題");
         const options = interaction.options.getString("選項");
-        const tag = interaction.options.getString("標注");
+        const tag = interaction.options.getRole("標注");
         const pic = interaction.options.getAttachment("圖片");
         if(pic && !pic.contentType.includes("image")) return interaction.editReply(":x: 你給的檔案不是圖片!!")
         let controlRow = new MessageActionRow().addComponents(
@@ -121,9 +122,8 @@ module.exports = {
                     .setEmoji("987607934269784085")
                     .setCustomId("showChart")
             );
-
             const sentMsg = await interaction.channel.send({
-                content: tag ? tag : null,
+                content: tag ? `<@&${tag.id}>` : null,
                 embeds: [embed],
                 components: [messageRow, controlRow],
             });
@@ -131,6 +131,7 @@ module.exports = {
                 MessageID: sentMsg.id,
                 OwnerID: interaction.user.id,
                 Title: question,
+                Image: pic ? pic.proxyURL : null,
                 Options: ["是", "否"],
                 Public: false,
                 Ended: false,

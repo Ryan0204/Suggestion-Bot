@@ -3,7 +3,7 @@ const config = require('./config.json')
 const { blue, red, green, magenta, cyan } = require("chalk");
 
 const manager = new Cluster.Manager(`${__dirname}/index.js`, {
-    totalShards: 'auto',
+    totalShards: "auto",
     shardsPerClusters: 2,
     mode: 'process', 
     token: config.token,

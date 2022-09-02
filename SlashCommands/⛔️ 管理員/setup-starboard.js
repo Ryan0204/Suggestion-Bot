@@ -23,6 +23,7 @@ const {
   module.exports = {
     name: "setup-starboard",
     description: "設置星版系統",
+    applicationId: "1004678423626649613",
     options: [
       {
         name: "頻道",
