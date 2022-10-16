@@ -40,11 +40,11 @@ const {
       },
     ],
     /**
-    * 
-    * @param {Client} client
-    * @param {CommandInteraction} interaction
-    * @param {String[]} args
-    */
+     *
+     * @param {Client} client
+     * @param {CommandInteraction} interaction
+     * @param {String[]} args
+     */
     run: async (client, interaction, args) => {
       const betaSchema = require("../../schema/beta");
       const checkBeta = await betaSchema.findOne({ GuildID: interaction.guild.id })

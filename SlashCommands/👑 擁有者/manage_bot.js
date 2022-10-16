@@ -2,6 +2,7 @@ const { Client, CommandInteraction } = require("discord.js");
 const Discord = require(`discord.js`);
 const glob = require("glob");
 module.exports = {
+<<<<<<< HEAD
     name: "manage-bot",
     description: "管理機器人",
     applicationId: "955420795201544222",
@@ -15,6 +16,15 @@ module.exports = {
     run: async (client, interaction, args) => {
         if (!client.config.developers.includes(interaction.user.id))
             return interaction.followUp(`🔒 你沒有權限使用此指令！`);
+=======
+  name: "manage-bot",
+  description: "管理機器人",
+  type: "CHAT_INPUT",
+
+  run: async (client, interaction, args) => {
+    if (!client.config.developers.includes(interaction.user.id))
+      return interaction.followUp(`🔒 你沒有權限使用此指令！`);
+>>>>>>> parent of 557e18a (✨ | 小更新)
 
         let clientapp = client.application
             ? await client.application.fetch().catch((e) => false)

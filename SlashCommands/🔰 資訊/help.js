@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const {
     Client,
     CommandInteraction,
@@ -5,10 +6,14 @@ const {
     MessageActionRow,
     MessageButton,
 } = require("discord.js");
+=======
+const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
+>>>>>>> parent of 557e18a (✨ | 小更新)
 const { readdirSync } = require("fs");
 const path = require("path");
 const client = require("../..");
 module.exports = {
+<<<<<<< HEAD
     name: "help",
     description: "查看機器人的所有指令",
     applicationId: "955420795201544223",
@@ -21,6 +26,13 @@ module.exports = {
      */
     run: async (client, interaction, args) => {
         let categories = [];
+=======
+  name: "help",
+  description: "查看機器人的所有指令",
+  type: "CHAT_INPUT",
+  run: async (client, interaction, args) => {
+    let categories = [];
+>>>>>>> parent of 557e18a (✨ | 小更新)
 
         readdirSync(path.join(__dirname, `..`)).forEach((dir) => {
             const commands = readdirSync(
@@ -56,6 +68,7 @@ module.exports = {
             .setURL("https://discord.gg/HAN45Zaknr")
             .setColor(client.config.color.blue)
 
+<<<<<<< HEAD
             .addFields(categories)
             .setFooter({
                 text: `${client.user.tag} | 由 OuO 編程社群用 💖 製作`,
@@ -72,4 +85,13 @@ module.exports = {
             components: [buttonRow],
         });
     },
+=======
+      .addFields(categories)
+      .setFooter({
+        text: `${client.user.tag} | 由 OuO 編程社群用 💖 製作`,
+        iconURL: client.user.displayAvatarURL(),
+      });
+    return interaction.followUp({ embeds: [embed] });
+  },
+>>>>>>> parent of 557e18a (✨ | 小更新)
 };

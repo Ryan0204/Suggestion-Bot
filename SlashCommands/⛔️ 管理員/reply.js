@@ -52,11 +52,11 @@ module.exports = {
     },
   ],
   /**
-  * 
-  * @param {Client} client
-  * @param {CommandInteraction} interaction
-  * @param {String[]} args
-  */
+   *
+   * @param {Client} client
+   * @param {CommandInteraction} interaction
+   * @param {String[]} args
+   */
   run: async (client, interaction, args) => {
     constom_message.findOne({ GuildID: interaction.guild.id }, async (err, data1) => {
       let sug_id = interaction.options.getString("message");

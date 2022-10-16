@@ -1,10 +1,25 @@
 const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
 const config = require("../../config.json");
 module.exports = {
+<<<<<<< HEAD
     name: "ping",
     description: "獲取機器人信息",
     type: "CHAT_INPUT",
     applicationId: "955420795201544225",
+=======
+  name: "ping",
+  description: "獲取機器人信息",
+  type: "CHAT_INPUT",
+  run: async (client, interaction, args) => {
+    // Uptime Checker
+    let totalSeconds = client.uptime / 1000;
+    let days = Math.floor(totalSeconds / 86400);
+    totalSeconds %= 86400;
+    let hours = Math.floor(totalSeconds / 3600);
+    totalSeconds %= 3600;
+    let minutes = Math.floor(totalSeconds / 60);
+    let seconds = Math.floor(totalSeconds % 60);
+>>>>>>> parent of 557e18a (✨ | 小更新)
 
     /**
      *
