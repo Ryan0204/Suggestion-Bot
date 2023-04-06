@@ -1,4 +1,4 @@
-# OUTDATED - Update will be uploaded soon
+# OUTDATED
 ## 💡 Suggestion-Bot
 **💡 Suggestion Bot 一個讓用戶提議以及投票的機器人**
 > 本項目需要MongoDB數據庫
